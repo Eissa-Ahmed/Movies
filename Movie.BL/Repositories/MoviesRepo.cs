@@ -33,9 +33,8 @@ namespace Movie.BL.Repositories
 
         public async Task DeleteMovies(int id)
         {
-            var item = GetMoviesById(id);
-            var data = mapper.Map<Movies>(item);
-            dbContext.Movies.Remove(data);
+            var item = await dbContext.Movies.FindAsync(id);
+            dbContext.Movies.Remove(item);
             await dbContext.SaveChangesAsync();
         }
 

@@ -6,6 +6,7 @@ namespace Movie.BL.Model
 {
     public class MoviesVM
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "Story Line Is Required") ,MaxLength(15, ErrorMessage = "Max Length is 15 Char")]
         public string Title { get; set; }
         [Range(1, 10, ErrorMessage = "Range From 1 To 10")]
