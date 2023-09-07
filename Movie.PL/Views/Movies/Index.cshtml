@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MoviesVM>
+@{
+    ViewData["Title"] = "Movies";
+}
+<style>
+    .row-space-div {
+        display: flex;
+        justify-content: space-between !important;
+        margin-bottom: 25px;
+        height: 40px;
+    }
+</style>
+<div class="row-space-div">
+    <h2>Movies</h2>
+
+    <a asp-controller="Movies" asp-action="Create" class="btn btn-success">
+        <i class="bi bi-film"></i>
+        Add Movie
+    </a>
+</div>
+<hr />
+@if (!Model.Any())
+{
+    <div class="alert alert-danger" role="alert">
+        No Movies Found! <a asp-controller="Movies" asp-action="Create"  class="alert-link">Add Movies</a>
+    </div>
+}
+else
+{
+    
+}
