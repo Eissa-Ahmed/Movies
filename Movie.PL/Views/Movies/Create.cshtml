@@ -10,11 +10,8 @@
 </style>
 <form class="row g-3" asp-controller="Movies" asp-action="Create" enctype="multipart/form-data">
 
-    <div class="col-md-8">
-        <label asp-for="Title" class="form-label">Title</label>
-        <input type="text" class="form-control" asp-for="Title">
-        <span asp-validation-for="Title" class="text-danger font-bold"></span>
-    </div>
+    @* @Html.Partial("Movie_Update_Create" , Model) *@
+    <partial name="~/Views/Shared/PartialView/Movie_Update_Create.cshtml" />
 
     <div class="col-md-4">
         <label asp-for="GenersId" class="form-label">Geners</label>
