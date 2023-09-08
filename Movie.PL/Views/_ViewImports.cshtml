@@ -1,4 +1,7 @@
 ﻿@using Movie.PL
+@using Movie.PL.Language;
 @using Movie.PL.Models
 @using Movie.BL.Model
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Lang> SharedLocalizer

@@ -17,6 +17,18 @@ namespace Movie.BL.Helper
                 return true;
             }
         }
+        public static bool CheckExtensionVideo(IFormFile file)
+        {
+            List<string> allowExtension = new List<string>() { ".mp4" };
+            if (allowExtension.Contains(Path.GetExtension(file.FileName).ToLower()))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static bool CheckSizeFile(IFormFile file)
         {
             if (file.Length > 100000)

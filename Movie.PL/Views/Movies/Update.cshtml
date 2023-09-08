@@ -10,56 +10,8 @@
 </style>
 <form class="row g-3" asp-controller="Movies" asp-action="Update" enctype="multipart/form-data">
 
-    <div class="col-md-8">
-        <label asp-for="Title" class="form-label">Title</label>
-        <input type="text" class="form-control" asp-for="Title">
-        <span asp-validation-for="Title" class="text-danger font-bold"></span>
-    </div>
+    <partial name="~/Views/Shared/PartialView/Movie_Update_Create.cshtml" />
 
-    <div class="col-md-4">
-        <label asp-for="GenersId" class="form-label">Geners</label>
-        <select asp-for="GenersId" class="form-select">
-            <option></option>
-            @foreach (var item in ViewBag.ListGeners)
-            {
-                <option value="@item.Id">@item.Name</option>
-            }
-        </select>
-        <span asp-validation-for="GenersId" class="text-danger font-bold"></span>
-    </div>
-
-    <div class="col-12">
-        <label asp-for="StoryLine" class="form-label">Story Line</label>
-        <input type="text" class="form-control" asp-for="StoryLine">
-        <span asp-validation-for="StoryLine" class="text-danger font-bold"></span>
-    </div>
-    <div class="mb-3 col-6">
-        <label asp-for="File" class="form-label">Choose Poster For Movie</label>
-        <input class="form-control" type="file" asp-for="File" accept="image/*">
-        <span asp-validation-for="File" class="text-danger font-bold"></span>
-        <span asp-validation-for="Poster" class="text-danger font-bold"></span>
-    </div>
-    <div class="col-md-4">
-        <label asp-for="Year" class="form-label">Year</label>
-        <input type="number" class="form-control" asp-for="Year" min="1900" max="2024">
-        <span asp-validation-for="Year" class="text-danger font-bold"></span>
-    </div>
-    <div class="col-md-2">
-        <label asp-for="Rate" class="form-label">Rate</label>
-        <input type="number" class="form-control" asp-for="Rate">
-        <span asp-validation-for="Rate" class="text-danger font-bold"></span>
-    </div>
-
-
-
-
-
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary col-12">
-            <i class="bi bi-cloud-download"></i>
-            Save
-        </button>
-    </div>
 </form>
 
 @section Scripts {

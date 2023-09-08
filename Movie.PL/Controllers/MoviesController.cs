@@ -38,7 +38,7 @@ namespace Movie.PL.Controllers
             ViewBag.ListGeners = await GenersServices.GetGeners();
             try
             {
-                //Check Extension File
+               /* //Check Extension File
                 if (!ValidateFile.CheckExtensionFile(model.File))
                 {
                     ModelState.AddModelError("Poster", "Only .png , .jpg Imaged Are Allowed");
@@ -49,11 +49,11 @@ namespace Movie.PL.Controllers
                 {
                     ModelState.AddModelError("Poster", "Only Size Allowed is 1MB");
                     return View(model);
-                }
+                }*/
                 //Check model is valid
                 if (ModelState.IsValid)
                 {
-                    model.Poster = FileUploader.UploadFile("Images", model.File);
+                    model.Poster = FileUploader.UploadFile("Videos", model.File);
                     await MoviesServices.CreateMovies(model);
                     return RedirectToAction("Index");
                 }
@@ -105,9 +105,19 @@ namespace Movie.PL.Controllers
                 //Check model is valid
                 if (ModelState.IsValid)
                 {
-                    model.Poster = FileUploader.UploadFile("Images", model.File);
-                    await MoviesServices.UpdateMovies(model);
-                    return RedirectToAction("Index");
+                    if (model.Poster != null)
+                    {
+                        model.Poster = FileUploader.UploadFile("Images", model.File);
+                        await MoviesServices.UpdateMovies(model);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        var item = await MoviesServices.GetMoviesById(model.Id);
+                        model.Poster = item.Poster;
+                        await MoviesServices.UpdateMovies(model);
+                        return RedirectToAction("Index");
+                    }
                 }
                 else
                 {

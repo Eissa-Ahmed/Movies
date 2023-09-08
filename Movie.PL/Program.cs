@@ -1,8 +1,12 @@
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Movie.BL.Interfaces;
 using Movie.BL.Mapper;
 using Movie.BL.Repositories;
 using Movie.DAL.Database;
+using Movie.PL.Language;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +25,13 @@ builder.Services.AddScoped<IGeners, GenersRepo>();
 builder.Services.AddAutoMapper(option => option.AddProfile(new DomainProfile()));
 #endregion
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization(options =>
+    {
+        options.DataAnnotationLocalizerProvider = (type, factory) =>
+            factory.Create(typeof(Lang));
+    }); ;
 
 var app = builder.Build();
 
@@ -32,6 +42,23 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+#region Language
+var supportedCultures = new[] {
+                      new CultureInfo("ar-EG"),
+                      new CultureInfo("en-US"),
+                };
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en-US"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+    RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                new QueryStringRequestCultureProvider(),
+                new CookieRequestCultureProvider()
+                }
+});
+#endregion
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
